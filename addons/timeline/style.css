@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    position: relative;
+    z-index: 50;
+}
+
+.progress-container {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    width: 35%;
+    max-width: 98%;
+    background: #1f1f1f;
+    /* Colore container solido più scuro */
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    z-index: 50;
+}
+
+/* Barra unica con anima­zione CSS */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    z-index: 50;
+}
+
+.progress-bar .fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    border-radius: 4px;
+    background: #00bfff; /* di default azzurro, sovrascrivibile */
+    transition: width var(--duration) ease-in-out;
+}

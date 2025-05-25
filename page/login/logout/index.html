@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+</head>
+
+<body>
+    <div class="content">
+        <link rel="stylesheet" href="/page/login/logout/style.css">
+
+        <div style="display: none;">${if (!checkAuth()) loadPage('login')}</div>
+        <div class="matrix-bg" id="matrix"></div>
+
+        <div class="dashboard-container">
+            <div class="illustration">
+                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Dashboard Icon">
+            </div>
+            <h1>Ciao ${getCookie('auth_user')}!!</h1>
+            <p>Il tuo livello di timeline è: <strong style="color: green;">${getCookie('timeline')}</strong></p>
+            <div class="button-group">
+                <a class="link" page="home">Torna alla Home</a>
+                <a class="logout" onclick="logout()">Logout</a>
+            </div>
+            <div class="logout-warning">⚠️ Il logout cancellerà tutti i dati temporanei salvati.</div>
+        </div>
+
+
+        <script src="/page/login/logout/script.js"></script>
+    </div>
+</body>
+
+</html>

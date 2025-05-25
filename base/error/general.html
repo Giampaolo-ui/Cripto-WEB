@@ -1,0 +1,17 @@
+<html>
+    <body>
+        <div class="content">
+            <link rel="stylesheet" href="/base/style/general-error.css">
+            <div class="box">
+                <h1>⚠ Nessuna <code>${getFromURL("value")}</code> specificata</h1>
+                <div class="code">
+                <span>${getFromURL("msg")}</span>
+                <span class="cursor"></span>
+                </div>
+            </div>
+
+            <script>document.title = "Error - ${getFromURL('value')}"</script>
+            <blob color="#00ffe1" enable="true"/>
+        </div>
+    </body>
+</html>

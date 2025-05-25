@@ -1,0 +1,200 @@
+<html>
+<body>
+        <div class="content">
+            <link rel="stylesheet" href="/page/symmetric/style.css">
+
+            <nav class="navbar">
+                <div class="logo">Symmetric Cryptography</div>
+
+
+                <div class="nav-links">
+                    <a class="link" page="home" href="#home">Home</a>
+                    <a class="link" page="section" href="#section">Chapter</a>
+                    <a class="link" page="${!checkAuth() ? 'login' : 'logout';}" id="login" href="#login">
+                        ${!checkAuth() ? 'Login' : getCookie('auth_user');}
+                    </a>
+                </div>
+            </nav>
+
+            <main>
+                <section id="section1">
+                    <div class="part">
+                        <h2>La sicurezza nelle reti</h2>
+                        <p>Le reti non sono ambienti naturalmente sicuri: un semplice <strong>packet sniffer</strong> può intercettare dati sensibili come password o informazioni bancarie. In un mondo sempre più connesso, dove l'<em>e-commerce</em> e le transazioni online sono all'ordine del giorno, la fiducia nelle comunicazioni digitali è fondamentale.</p>
+                        <p>Per garantire la protezione delle informazioni trasmesse, è essenziale adottare misure che assicurino la <strong>segretezza</strong> dei dati, l'<strong>autenticazione</strong> delle parti coinvolte e l'<strong>integrità</strong> dei documenti. In altre parole, bisogna impedire accessi non autorizzati, confermare le identità e accertarsi che i messaggi non vengano modificati lungo il tragitto.</p>
+                        <p>Questi obiettivi si raggiungono attraverso l'uso della <strong>crittografia</strong>, che rappresenta il cuore delle moderne tecniche di protezione. Le strategie di difesa si applicano a diversi livelli:</p>
+                        <p>Al <strong>livello fisico</strong>, si cerca di impedire intercettazioni hardware o disturbi elettromagnetici. Nel <strong>livello data link</strong>, i frame vengono cifrati per rendere il traffico incomprensibile a eventuali intrusi. Infine, al <strong>livello applicativo</strong>, si utilizzano protocolli come HTTPS o TLS per offrire una protezione completa da un capo all’altro della comunicazione.</p>
+                        <p>In sintesi, gli utenti desiderano principalmente due cose: che i loro dati non siano leggibili da estranei e che ci sia certezza sull’autenticità e l’integrità dei messaggi. Tutto questo è reso possibile dalla crittografia, che andremo a esplorare nel dettaglio partendo dai suoi metodi più fondamentali, con un focus particolare sulla <strong>crittografia simmetrica</strong>.</p>
+                    </div>
+                </section>
+
+                <section id="section2"  style="flex-direction: row;">
+                    <div class="part">
+                        <h2>Cos'è la crittografia?</h2>
+                        <p>Il desiderio di comunicare in segreto non è nato con Internet: già 4500 anni fa, nei geroglifici egizi, si adottavano tecniche per nascondere il contenuto dei messaggi. Oggi, la crittografia definisce il processo con cui un <strong>messaggio in chiaro</strong> (<em>plaintext</em>) viene trasformato in un <strong>messaggio cifrato</strong> (<em>ciphertext</em>), rendendolo indecifrabile a chi non possiede la chiave.</p>
+                        <p>Questo avviene tramite un <strong>algoritmo di cifratura</strong> che stabilisce una corrispondenza univoca tra simboli in chiaro e simboli cifrati, e una <strong>chiave</strong> (parametro) che rende il risultato unico. Il destinatario utilizza la stessa chiave (o una chiave complementare nel caso asimmetrico) per decrittare il testo e recuperare il contenuto originale.</p>
+                        <div class="card-container">
+                            <div class="card">
+                                <h3>Plaintext vs Ciphertext</h3>
+                                <p><strong>Plaintext:</strong> testo leggibile (es. "AIUTO").<br><strong>Ciphertext:</strong> testo cifrato, stringa apparentemente casuale (es. "BLVUP").</p>
+                            </div>
+                            <div class="card">
+                                <h3>Algoritmo & Chiave</h3>
+                                <p><strong>Algoritmo:</strong> serie di regole matematiche per la trasformazione.<br><strong>Chiave:</strong> parametro segreto o pubblico/privato che definisce la specifica istanza dell’algoritmo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="part">
+                        <p>Spesso si distingue la <em>codifica</em> (sostituzione di parole o frasi, es. "AIUTO" → "HELP" o "SOCCORSO") dalla <em>cifratura</em>, che opera a livello di carattere o bit e offre una protezione superiore.</p>
+                        <p>Ad esempio, il cifrario di Cesare (shift di 1) trasforma "AIUTO" in <code>BLVUP</code>. Qui, l’algoritmo è lo <em>shift</em>, mentre la chiave è il valore 1. Secondo il <strong>principio di Kerckhoffs</strong>, l’algoritmo può essere pubblico: la sicurezza dipende interamente dalla segretezza della chiave.</p>
+                    </div>
+                </section>
+
+
+                <section id="section3">
+                    <div class="part">
+                        <h2>Crittoanalisi</h2>
+                        <p>L’algoritmo può essere pubblico, ma la chiave rimane segreta. La crittoanalisi (da <em>kryptós</em>, nascosto, e <em>analúein</em>, scomporre) studia metodi per recuperare la chiave a partire dai ciphertext.</p>
+                        <ul>
+                        <li><strong>Forza bruta:</strong> test di tutte le chiavi possibili (O(2<sup>n</sup>)).</li>
+                        <li><strong>Analisi differenziale:</strong> differenze tra coppie di testi.</li>
+                        <li><strong>Analisi lineare:</strong> approssimazioni lineari tra plaintext, ciphertext e chiave.</li>
+                        <li><strong>Attacchi statistici:</strong> sfruttano la ridondanza del linguaggio.</li>
+                        </ul>
+                        <p>Il <strong>principio di Kerckhoffs</strong> stabilisce che la sicurezza dovrà basarsi solo sulla chiave segreta; <em>“Il nemico conosce il sistema”</em>.</p>
+                        <h3>⏰ One-Time Pad</h3>
+                        <p>Un pad casuale lungo quanto il messaggio, usato una sola volta, garantisce sicurezza assoluta. Le versioni moderne (OTK) rigenerano la chiave ogni pochi secondi.</p>
+                    </div>
+                </section>
+
+                <section id="section4">
+                    <div class="part">
+                        <h2>Cifrario DES</h2>
+                        <p>Il <strong>Data Encryption Standard (DES)</strong> è stato sviluppato da Horst Feistel presso IBM per il progetto Lucifer e adottato come standard dal National Bureau of Standards (oggi NIST) nel 1976. La NSA lo certificò come sistema pubblico efficiente e compatibile per la protezione di dati sensibili.</p>
+                        <p>DES è un block cipher a chiave segreta che opera su blocchi di 64 bit, di cui 8 bit sono usati per il controllo di parità, lasciando effettivi 56 bit di chiave. Il processo di cifratura prevede i seguenti passi:</p>
+                        <ol>
+                        <li><strong>Permutazione iniziale (IP):</strong> riallinea i bit del blocco di 64 bit secondo una tabella standard.</li>
+                        <li><strong>16 round Feistel:</strong> in ogni round, il blocco viene diviso in metà sinistra (L) e destra (R):</li>
+                        <ul>
+                            <li>Una <em>key schedule</em> genera una sottochiave di 48 bit dalla chiave principale tramite permutazioni e rotazioni.</li>
+                            <li>Una funzione di espansione espande R da 32 a 48 bit.</li>
+                            <li>R e la sottochiave sono combinati tramite XOR.</li>
+                            <li>Il risultato passa attraverso 8 S-box (sostituzioni non lineari), riducendo da 48 a 32 bit.</li>
+                            <li>Una permutazione P riordina i bit risultanti.</li>
+                            <li>Il risultato è XORato con L, quindi le metà si scambiano.</li>
+                        </ul>
+                        <li><strong>Permutazione inversa (FP):</strong> alla fine dei 16 round, si applica l’inversa della permutazione IP.</li>
+                        </ol>
+                    </div>
+                    <div class="part">
+                        <p>La decifratura utilizza lo stesso algoritmo invertendo l’ordine delle sottochiavi. Questo rende DES uno schema simmetrico: chi cifra e chi decifra devono possedere la stessa chiave.</p>
+                        <p><strong>Effetto valanga:</strong> una piccola modifica nel plaintext (es. un singolo bit) provoca un cambiamento drastico in molti bit del ciphertext, garantendo confusione e diffusione secondo i principi di Shannon.</p>
+                        <p>Nonostante la chiave a 56 bit sia oggi ritenuta insufficiente (violata nel 1998 da un attacco brute-force realizzato in 56 ore con hardware dedicato), DES rimane fondamentale per comprendere l’evoluzione dei cifrari moderni.</p>
+                    </div>
+                </section>
+
+                <section id="section5">
+                    <div class="part">
+                        <h2>Triple DES (3-DES)</h2>
+                        <p>Triple DES estende il DES tradizionale applicando l’algoritmo tre volte con tre chiavi separate (K<sub>1</sub>, K<sub>2</sub>, K<sub>3</sub>), aumentando la lunghezza effettiva della chiave fino a 168 bit.</p>
+                        <p>Il processo di cifratura avviene come segue:</p>
+                        <ol>
+                        <li>Cifratura con K<sub>1</sub>: C<sub>1</sub> = DES<sub>K1</sub>(M)</li>
+                        <li>Decifratura con K<sub>2</sub>: C<sub>2</sub> = DES<sub>K2</sub><sup>-1</sup>(C<sub>1</sub>)</li>
+                        <li>Cifratura con K<sub>3</sub>: C = DES<sub>K3</sub>(C<sub>2</sub>)</li>
+                        </ol>
+                        <p>La decifratura usa l’ordine inverso delle chiavi: decifra con K<sub>3</sub>, cifra con K<sub>2</sub> (inversa), decifra con K<sub>1</sub>. Questo schema mantiene compatibilità con DES nel caso in cui K<sub>1</sub> = K<sub>2</sub> = K<sub>3</sub>.</p>
+                        <p>Triple DES supporta tre modalità di gestione delle chiavi:</p>
+                        <ul>
+                        <li><strong>Keying Option 1:</strong> K<sub>1</sub>, K<sub>2</sub> e K<sub>3</sub> indipendenti, sicurezza di 168 bit.</li>
+                        <li><strong>Keying Option 2:</strong> K<sub>1</sub> = K<sub>3</sub>, K<sub>2</sub> differente, sicurezza di 112 bit.</li>
+                        <li><strong>Keying Option 3:</strong> K<sub>1</sub> = K<sub>2</sub> = K<sub>3</sub>, compatibilità con DES originale, sicurezza di 56 bit.</li>
+                        </ul>
+                        <p>Nel 1999, Triple DES è diventato uno standard per transazioni finanziarie (VISA, Mastercard) e comunicazioni governative, grazie all’incremento della robustezza contro attacchi brute-force.</p>
+                    </div>
+                </section>
+
+                <section id="section6">
+                    <div class="part">
+                        <h2>IDEA (International Data Encryption Algorithm)</h2>
+                        <p>Proposto nel 1991 da Xuejia Lai e James L. Massey in Svizzera come successore del DES, <strong>IDEA</strong> è un block cipher a chiave segreta da 128 bit operante su blocchi di 64 bit. Fu ideato per mantenere l’efficienza dei cifrari Feistel, introducendo elementi di moltiplicazione e somma modulo per incrementare la sicurezza.</p>
+                        <h3>Struttura e Operazioni</h3>
+                        <ol>
+                        <li><strong>Divisione del blocco:</strong> Il plaintext da 64 bit viene suddiviso in quattro parole di 16 bit (X<sub>1</sub>, X<sub>2</sub>, X<sub>3</sub>, X<sub>4</sub>).</li>
+                        <li><strong>Round Function (8 round):</strong> Ogni round esegue le seguenti fasi usando sei sottochiavi di 16 bit estratte dalla chiave principale:
+                            <ul>
+                            <li><em>Moltiplicazione modulo 2<sup>16</sup> + 1</em> su X<sub>1</sub> e X<sub>4</sub>.</li>
+                            <li><em>Addizione modulo 2<sup>16</sup></em> su X<sub>2</sub> e X<sub>3</sub>.</li>
+                            <li><em>XOR</em> tra i risultati per mescolare i dati.</li>
+                            <li>Scambio e miscela delle parole con ulteriori operazioni XOR e addizione.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Output Transformation:</strong> Dopo l’ottavo round, le ultime quattro sottochiavi creano la trasformazione finale combinando ulteriori operazioni di moltiplicazione e addizione modulare.</li>
+                        </ol>
+                    </div>
+                    <div class="part">
+                        <h3>Espansione delle Sottochiavi</h3>
+                        <p>La chiave a 128 bit viene suddivisa inizialmente in otto segmenti di 16 bit. Dopo ogni round, la chiave viene ruotata a sinistra di 25 bit per generare nuovi segmenti, producendo un totale di 52 sottochiavi necessarie per i round e la trasformazione finale.</p>
+                        <h3>Sicurezza e Prestazioni</h3>
+                        <ul>
+                        <li>Non sono note tecniche praticabili di crittoanalisi differenziale o lineare contro IDEA.</li>
+                        <li>La chiave a 128 bit offre una resistenza teorica a brute-force di O(2<sup>128</sup>).</li>
+                        <li>IDEA è molto efficiente in software e hardware, per questo è stato ampiamente utilizzato in PGP (Pretty Good Privacy).</li>
+                        </ul>
+                        <p>Oggi, pur essendo stato superato in alcuni contesti da AES, IDEA rimane un esempio importante di innovazione nella crittografia simmetrica, unendo semplicità di implementazione e robustezza crittografica.</p>
+                    </div>
+                </section>
+
+                <section id="section7" style="flex-direction: row;">
+                    
+                    <div class="part">
+                        <h2>AES (Advanced Encryption Standard)</h2>
+                        <p>Nel 1997 il NIST (National Institute of Standards and Technology) USA indisse un concorso per sostituire l’ormai insicuro DES e definire il nuovo <strong>Advanced Encryption Standard (AES)</strong>. Su 15 proposte ricevute, dopo rigorosi test e analisi nel 2000 vinse l’algoritmo <em>Rijndael</em> dei crittologi belgi Joan Daemen e Vincent Rijmen, scelto per la sua velocità, robustezza e flessibilità.</p>
+                        <h3>Valutazione dei Candidati</h3>
+                        <p>Il NIST valutò i progetti secondo due criteri:</p>
+                        <li><strong>Sicurezza:</strong> chiave minima di 128 bit, resistente a brute-force e crittoanalisi nota.</li>
+                        <li><strong>Efficienza e Implementazione:</strong> adatto a vari contesti, da ambienti con risorse limitate (Smart Card) a implementazioni ad alte prestazioni, con codifica semplice e leggibilità del codice.</li>
+                        <p>Tra i finalisti furono analizzati aspetti quali la resistenza generale, le prestazioni software su diverse piattaforme, la gestione della chiave e il supporto al parallelismo.</p>
+                        <h3>Struttura dell’Algoritmo</h3>
+                        <p>AES è un block cipher a 128 bit con chiavi di 128, 192 o 256 bit, strutturato in <strong>10/12/14 round</strong> a seconda della lunghezza della chiave. Ogni round comprende quattro subfasi:</p>
+
+                    </div>
+                    <div class="part">
+                        <li><strong>SubBytes:</strong> sostituzione non lineare di ogni byte tramite S-box.</li>
+                        <li><strong>ShiftRows:</strong> rotazione delle righe dello state matrix (4x4 byte).</li>
+                        <li><strong>MixColumns:</strong> trasformazione lineare applicata a ciascuna colonna tramite moltiplicazione in GF(2<sup>8</sup>).</li>
+                        <li><strong>AddRoundKey:</strong> XOR dello state con la sottochiave del round.</li>
+                        <h3>Espansione delle Chiavi</h3>
+                        <p>La <em>key schedule</em> genera 11/13/15 sottochiavi da 128 bit, partendo dalla chiave principale e applicando rotazioni, SubBytes e XOR con costanti di round.</p>
+                        <h3>Proprietà Principali</h3>
+                        <li>Resistenza a crittoanalisi lineare e differenziale.</li>
+                        <li>Elevata efficienza su hardware e software.</li>
+                        <li>Flessibilità di lunghezza della chiave e parallelizzabile.</li>
+                        <p>AES è il primo standard approvato NSA per comunicazioni top-secret ed è tuttora il cifrario a chiave segreta più utilizzato, senza attacchi praticabili note fino ad oggi.</p>
+                    </div>
+                </section>
+
+                <section id="section8">
+                    <div class="part">
+                        <h2>Limiti degli algoritmi simmetrici</h2>
+                        <p>Gli algoritmi simmetrici, sebbene rapidi ed efficienti, presentano alcune criticità inerenti alla gestione delle chiavi:</p>
+
+                        <li><strong>Distribuzione sicura:</strong> mittente e destinatario devono possedere la stessa chiave segreta, richiedendo canali affidabili che non sono sempre disponibili.</li>
+                        <li><strong>Scalabilità:</strong> in una rete con <em>n</em> utenti, servono <em>n(n-1)/2</em> chiavi diverse per garantire comunicazioni pairwise sicure.</li>
+                        <li><strong>Usura della chiave:</strong> la ripetuta riutilizzazione favorisce attacchi di crittoanalisi basati sull’osservazione di più ciphertext.</li>
+                        <li><strong>Rischio di compromissione:</strong> perdita o divulgazione della chiave comporta la compromissione immediata di tutte le comunicazioni protette.</li>
+
+                        <p>Soluzioni parziali, come l’uso di corrieri fidati o la suddivisione della chiave in parti, risultano spesso impraticabili o non sufficientemente sicure. Inoltre, l’evoluzione tecnologica verso infrastrutture sempre più potenti rende i sistemi con chiavi corte sempre più vulnerabili.</p>
+                        <p>Per superare questi limiti, la crittografia simmetrica viene spesso abbinata a schemi asimmetrici per la gestione e lo scambio iniziale delle chiavi, combinando la velocità del cifrario simmetrico con la flessibilità della crittografia a chiave pubblica. Questa integrazione è alla base di protocolli moderni come TLS/SSL e VPN.</p>
+                        <a class="link" page="asym" args="point=1" href="#asym">Asymmetric -></a>
+                    </div>
+                </section>
+            </main>
+
+            <timeline steps="8" />
+            <blob color="#00bfff" link="true"/>
+            <script src="/page/symmetric/script.js"></script>
+        </div>
+
+    </body>
+</html>

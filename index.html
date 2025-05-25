@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/base/style/index.css">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .body {
+        background: #111;
+        color: #eee;
+        font-family: Consolas, monospace;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        text-align: center;
+        }
+        .message {
+        border: 2px solid #f00;
+        background: #300;
+        padding: 2rem;
+        border-radius: 8px;
+        max-width: 400px;
+        }
+        .ok {
+        border-color: #0f0;
+        background: #030;
+        }
+    </style>
+    <div class="body">
+        <div id="message" class="message"></div>
+    </div>
+
+    <div class="content index">
+        <div class="wrapper">
+            <div class="loader"></div>
+            <div class="text">Caricamento in corso...</div>
+        </div>
+    </div>
+
+    <div class="addons"></div>
+
+    <script src="base/scripts/load.js"></script>
+    <script>
+        msgEl = document.getElementById('message');
+        if (location.protocol === 'file:') {
+            msgEl.innerHTML = "Errore: Il file è stato aperto localmente con protocollo 'file://'. <br><br> Alcune funzionalità potrebbero non essere disponibili. <br><br> Si consiglia di eseguire la pagina tramite un server locale per garantire il corretto funzionamento.";
+            msgEl.style.borderColor = "#f00";
+            msgEl.style.backgroundColor = "#300";
+        } else {
+            document.querySelector(".body").style.display = 'none'
+        }
+  </script>
+</body>
+</html>

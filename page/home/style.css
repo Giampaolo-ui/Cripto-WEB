@@ -1,0 +1,72 @@
+.content {
+    background-image: url('/assets/home_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 4rem 0 4rem;
+}
+
+.navbar .logo {
+    font-size: 1.65rem;
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar .nav-links a {
+    font-size: 1.2rem;
+    padding: 0.3rem 0.6rem;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    margin-left: 12rem;
+    margin-top: -4rem;
+    min-height: calc(100vh - 70px);
+    text-align: left;
+}
+
+.hero-content {
+    max-width: 55rem;
+    z-index: 16;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.7rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+.hero a {
+    display: inline-block;
+    margin-top: 1.55rem;
+    padding: 0.75rem 2rem;
+    border: 4px solid #38bdf8;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}

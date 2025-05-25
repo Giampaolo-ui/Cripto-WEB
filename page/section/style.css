@@ -1,0 +1,58 @@
+* {
+    --text-color: #000;
+    color: var(--text-color);
+}
+
+.content {
+    background: #F4F6FF;
+    overflow: hidden;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 4rem 0 2.8rem;
+}
+
+.navbar .logo {
+    font-size: 1.65rem;
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar .nav-links a {
+    font-size: 1.2rem;
+    padding: 0.65rem 0.8rem;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.navbar .notify svg {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.navbar .notify {
+    display: flex;
+    align-items: center;
+    background-color: rgb(255, 72, 0);
+    padding: 12px 25px 12px 25px;
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.navbar .notify span {
+    position: relative;
+    top: 1px;
+    font-size: 1rem;
+    color: #fff;
+    margin-left: 0.5rem;
+    font-weight: bold;
+}

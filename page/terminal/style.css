@@ -1,0 +1,21 @@
+body {
+    background-color: black;
+    color: lime;
+    font-family: monospace;
+    margin: 0;
+    padding: 1rem;
+    overflow: hidden;
+}
+#cmd {
+    white-space: pre-wrap;
+    height: 90vh;
+    overflow-y: auto;
+}
+input {
+    background: transparent;
+    color: lime;
+    border: none;
+    outline: none;
+    font-family: monospace;
+    width: 100%;
+}

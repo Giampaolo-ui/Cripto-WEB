@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giampy OS</title>
+
+</head>
+<body>
+  <div class="content">
+    <link rel="stylesheet" href="/base/os/style.css">
+    <div class="desktop">
+      <div class="icon" onclick="toggleWindow()">
+        <img src="https://cdn-icons-png.flaticon.com/512/4956/4956478.png " alt="Cartella">
+        <div>Pagine</div>
+      </div>
+
+      <div class="icon folderTwo" onclick="toggleWindowTwo()">
+        <img src="https://cdn-icons-png.flaticon.com/512/4956/4956478.png " alt="Cartella">
+        <div>Prova Tu</div>
+      </div>
+
+      <div class="window" id="myWindow">
+        <div class="window-header" onmousedown="startDrag(event)">
+          <span>Pagine</span>
+          <div class="window-buttons">
+            <button class="btn maximize" onclick="maximizeWindow(event)"></button>
+            <button class="btn close" onclick="closeWindow(event)"></button>
+          </div>
+        </div>
+        <div class="window-content" id="pages">
+        </div>
+      </div>
+
+      
+    </div>
+
+    <script src="/base/os/script.js"></script>
+
+    <script>
+      const myWindow = document.getElementById('myWindow');
+      let offsetX, offsetY, isDragging = false;
+      let isMaximized = false;
+      let lastSize = {}, lastPosition = {};
+
+      function toggleWindow() {
+        myWindow.style.display = myWindow.style.display === 'flex' ? 'none' : 'flex';
+      }
+
+      function closeWindow(e) {
+        e.stopPropagation();
+        myWindow.style.display = 'none';
+      }
+
+      function maximizeWindow(e) {
+        e.stopPropagation();
+        if (!isMaximized) {
+          lastSize = { width: myWindow.style.width, height: myWindow.style.height };
+          lastPosition = { top: myWindow.style.top, left: myWindow.style.left };
+          myWindow.style.top = '0';
+          myWindow.style.left = '0';
+          myWindow.style.width = '100vw';
+          myWindow.style.height = '100vh';
+        } else {
+          myWindow.style.width = lastSize.width;
+          myWindow.style.height = lastSize.height;
+          myWindow.style.top = lastPosition.top;
+          myWindow.style.left = lastPosition.left;
+        }
+        isMaximized = !isMaximized;
+      }
+
+      function startDrag(e) {
+        if (isMaximized) return; // non spostare se massimizzata
+        isDragging = true;
+        offsetX = e.clientX - myWindow.offsetLeft;
+        offsetY = e.clientY - myWindow.offsetTop;
+        document.onmousemove = dragWindow;
+        document.onmouseup = stopDrag;
+      }
+
+      function dragWindow(e) {
+        if (!isDragging) return;
+        myWindow.style.left = (e.clientX - offsetX) + 'px';
+        myWindow.style.top = (e.clientY - offsetY) + 'px';
+      }
+
+      function stopDrag() {
+        isDragging = false;
+        document.onmousemove = null;
+        document.onmouseup = null;
+      }
+    </script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "msedge",
+      "request": "launch",
+      "name": "Launch to Edge",
+      "url": "http://192.168.1.108:3000"
+    }
+  ]
+}

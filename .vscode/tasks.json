@@ -1,0 +1,36 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Esegui script di avvio",
+        "type": "shell",
+        "command": "base\\backup\\backup.bat",
+        "presentation": {
+          "reveal": "always"
+        },
+        "runOptions": {
+          "runOn": "folderOpen"
+        }
+      },
+      {
+        "label": "Esegui backup su rete",
+        "type": "shell",
+        "command": "base\\backup\\backup_to_network.bat",
+        "presentation": {
+          "reveal": "always"
+        },
+        "runOptions": {
+          "runOn": "folderOpen"
+        }
+      },
+      {
+        "label": "Backup Manager",
+        "type": "shell",
+        "command": "base\\backup\\backup_manager.bat",
+        "presentation": {
+          "reveal": "always"
+        },
+        "runOptions": {}
+      }
+    ]
+}

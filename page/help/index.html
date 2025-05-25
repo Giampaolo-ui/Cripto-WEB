@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guida Comandi - Crypto CMD</title>
+
+</head>
+<body>
+    <div class="content">
+
+        <style>
+            body {
+            background: #111;
+            color: #eee;
+            font-family: monospace;
+            padding: 2rem;
+            }
+            h1, h2 {
+            color: #00ff00;
+            }
+            code {
+            background: #222;
+            padding: 0.2rem 0.4rem;
+            border-radius: 5px;
+            color: #0f0;
+            }
+            section {
+            margin-bottom: 2rem;
+            }
+            .cmd {
+            color: #0ff;
+            }
+        </style>
+
+        <h1>💻 Guida ai Comandi - Crypto CMD Simulator</h1>
+
+        <section>
+            <h2>🆘 <span class="cmd">help</span></h2>
+            <p>Mostra la lista dei comandi disponibili.</p>
+        </section>
+
+        <section>
+            <h2>🔐 <span class="cmd">gen-rsa</span></h2>
+            <p>Genera una nuova coppia di chiavi RSA (pubblica e privata). Le chiavi vengono salvate in memoria per l'uso con <code>enc-rsa</code> e <code>dec-rsa</code>.</p>
+        </section>
+
+        <section>
+            <h2>🔑 <span class="cmd">gen-sym</span></h2>
+            <p>Genera una nuova chiave simmetrica AES a 128 bit e la mostra nella console. Non viene salvata in memoria, ma puoi usare <code>%key</code> per riferirti all'ultima chiave generata.</p>
+        </section>
+
+        <section>
+            <h2>🛡️ <span class="cmd">enc-sym [chiave] [testo]</span></h2>
+            <p>Cripta il <strong>testo</strong> con la <strong>chiave</strong> specificata. Usa <code>%key</code> per l'ultima chiave generata.<br>
+            🔸 Esempio: <code>enc-sym %key Ciao mondo</code></p>
+        </section>
+
+        <section>
+            <h2>🔓 <span class="cmd">dec-sym [chiave]</span></h2>
+            <p>Decripta l'ultimo testo criptato con AES. Specifica la chiave usata per criptare.<br>
+            🔸 Esempio: <code>dec-sym %key</code></p>
+        </section>
+
+        <section>
+            <h2>🔐 <span class="cmd">enc-rsa [testo]</span></h2>
+            <p>Cripta il testo usando la chiave pubblica RSA generata in precedenza.<br>
+            🔸 Esempio: <code>enc-rsa Segreto123</code></p>
+        </section>
+
+        <section>
+            <h2>🔓 <span class="cmd">dec-rsa</span></h2>
+            <p>Decripta l'ultimo testo criptato con RSA usando la chiave privata.</p>
+        </section>
+
+        <section>
+            <h2>📌 Note Importanti</h2>
+            <ul>
+            <li><strong>%key</strong> rappresenta l'ultima chiave simmetrica generata.</li>
+            <li>Solo i dati criptati con <code>enc-sym</code> e <code>enc-rsa</code> vengono salvati temporaneamente per poter essere decriptati.</li>
+            <li>Se provi a decriptare senza prima criptare, riceverai un avviso.</li>
+            </ul>
+        </section>
+  </div>
+
+</body>
+</html>

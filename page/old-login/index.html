@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login & Livello | CryptoQuest</title>
+</head>
+<body>
+    <div class="content">
+        <link rel="stylesheet" href="/page/old-login/style.css">
+        <div class="card" id="card">
+
+          <if condition="getCookie('username') && getCookie('timeline')">
+
+            <h2 id="hw">👋 Ciao, ${getCookie('username')}!</h2>
+            <div class="button-group">
+              <button id="logoutBtn">Logout</button>
+              <button id="homeBtn" onclick="loadPage('home')">Home</button>
+            </div>
+
+            <else>
+
+              <if condition="getFromURL('timeline')">
+
+                <h2>🔐 Accedi</h2>
+                <form id="loginForm">
+                    <input type="text" id="username" placeholder="Username" required/>
+                    <div class="slider-wrapper">
+                    <label for="level">Livello Timeline: <span class="value" id="levelVal">${getFromURL("timeline")} - Blocked</span></label>
+                    <input type="range" id="level" min="0" max="8" value="${getFromURL('timeline')}" disabled />
+                    </div>
+                    <button type="submit">Entra</button>
+                </form>
+
+                <else>
+
+                  <h2>🔐 Accedi</h2>
+                  <form id="loginForm">
+                      <input type="text" id="username" placeholder="Username" required/>
+                      <div class="slider-wrapper">
+                      <label for="level">Livello Timeline: <span class="value" id="levelVal">0</span></label>
+                      <input type="range" id="level" min="0" max="8" value="0" />
+                      </div>
+                      <button type="submit">Entra</button>
+                  </form>
+
+                </else>
+
+              </if>
+
+            </else>
+
+          </if>
+
+        </div>
+        
+        <p id="logoutWarning">⚠️ Se effettui il logout perderai tutti i tuoi processi!</p>
+        <script src="/page/old-login/script.js"></script>
+
+        <blob color="#38bdf8" enable="true"/>
+    </div>
+</body>
+</html>

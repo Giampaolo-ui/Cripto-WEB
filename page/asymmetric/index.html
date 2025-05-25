@@ -1,0 +1,200 @@
+<html>
+<body>
+        <div class="content">
+            <link rel="stylesheet" href="/page/asymmetric/style.css">
+
+            <nav class="navbar">
+                <div class="logo">Symmetric Cryptography</div>
+
+
+                <div class="nav-links">
+                    <a class="link" page="home" href="#home">Home</a>
+                    <a class="link" page="section" href="#section">Chapter</a>
+                    <a class="link" page="${!checkAuth() ? 'login' : 'logout';}" id="login" href="#login">
+                        ${!checkAuth() ? 'Login' : getCookie('auth_user');}
+                    </a>
+                </div>
+            </nav>
+
+            <main>
+                <section id="section1" style="flex-direction: row;">
+                    <div class="part">
+                        <h2>Crittografia Asimmetrica</h2>
+                        <p>La crittografia simmetrica richiede uno scambio di chiavi sicuro tra le parti, il che risulta poco pratico in contesti come Internet. Per risolvere questo problema, nel 1975 nacque la <strong>crittografia a chiave pubblica</strong>, introdotta con l’articolo <em>New Directions in Cryptography</em> di Diffie e Hellman (1976).</p>
+                        <p>La sua idea rivoluzionaria è basata sull’uso di due chiavi diverse: una <strong>pubblica</strong> per cifrare e una <strong>privata</strong> per decifrare. La chiave pubblica può essere condivisa con chiunque, mentre quella privata deve rimanere segreta.</p>
+
+                        <div class="card-container">
+                            <div class="card">
+                                <h3>Come funziona?</h3>
+                                <p>
+                                    <strong>1.</strong> Bruno invia ad Anna il suo "lucchetto" (chiave pubblica).<br>
+                                    <strong>2.</strong> Anna usa il lucchetto per chiudere il messaggio e lo invia.<br>
+                                    <strong>3.</strong> Solo Bruno, con la chiave privata, può aprirlo e leggerlo.
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Firma Digitale</h3>
+                                <p>
+                                    Se Anna cifra con la sua chiave <strong>privata</strong>, chiunque può usare la sua <strong>pubblica</strong> per leggere il messaggio e verificare che venga proprio da lei. Questo garantisce autenticità e integrità.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="part">
+                        <p>La crittografia asimmetrica permette di garantire:</p>
+                        <ul>
+                            <li><strong>Riservatezza:</strong> solo il destinatario con la chiave privata può leggere il messaggio.</li>
+                            <li><strong>Autenticazione:</strong> è possibile verificare l'identità del mittente.</li>
+                            <li><strong>Integrità:</strong> l’uso degli hash rivela alterazioni nei dati.</li>
+                        </ul>
+
+                        <p>Un esempio noto di algoritmo asimmetrico è l’<strong>RSA</strong> (Rivest, Shamir, Adleman). Questo si basa su problemi matematici difficili da risolvere, come il logaritmo discreto.</p>
+
+                        <div class="card-container">
+                            <div class="card">
+                                <h3>Numero di chiavi</h3>
+                                <p>
+                                    Nei sistemi a chiave pubblica servono <strong>2n chiavi</strong> per n utenti.<br>
+                                    Nei sistemi simmetrici servono <strong>n(n-1)/2</strong> chiavi!
+                                </p>
+                            </div>
+                            <div class="card">
+                                <h3>Efficienza</h3>
+                                <p>Gli algoritmi asimmetrici sono meno efficienti, poiché richiedono calcoli più complessi rispetto a quelli simmetrici.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section2">
+                    <div class="part">
+                        <h2>🔐 Algoritmo RSA</h2>
+                        <p>L’algoritmo RSA è stato descritto nel 1977 da <strong>Ronald Rivest, Adi Shamir e Leonard Adleman</strong> al MIT e brevettato nel 1983 (brevetto 4.405.829, scaduto nel 2000). Si basa su una funzione facile da calcolare ma difficile da invertire senza una chiave segreta.</p>
+                        
+                        <h3>🧮 Fondamento matematico</h3>
+                        <li>RSA utilizza come chiave un numero <code>n</code>.</li>
+                        <li>ottenuto dal prodotto di due numeri primi <code>p</code> e <code>q</code></li>
+                        <li>Per decifrare un messaggio è necessario fattorizzare <code>n</code>,</li>
+                        <li>operazione computazionalmente difficile per grandi numeri.</li>
+                        <p>Nel 2005 un gruppo di ricerca ha impiegato 80 processori da 2,2 GHz per fattorizzare un numero RSA da 663 bit 😳.</p>
+                        
+                    </div>
+                    <div class="part">
+                        <h3>🔁 Utilizzo pratico</h3>
+                        <p>RSA viene spesso usato per trasmettere una chiave segreta, che poi viene utilizzata con un algoritmo a chiave simmetrica come AES 🔒.</p>
+
+                        <h3>📬 Funzionamento dell’algoritmo</h3>
+                        <ol>
+                            <li>B sceglie due numeri primi molto grandi: <code>p</code> e <code>q</code>.</li>
+                            <li>Calcola <code>n = p × q</code> e <code>φ(n) = (p-1)(q-1)</code>.</li>
+                            <li>Sceglie un numero <code>e</code> tale che <code>1 &lt; e &lt; φ(n)</code> e <code>gcd(e, φ(n)) = 1</code>.</li>
+                            <li>Calcola <code>d</code>, l'inverso moltiplicativo di <code>e</code> modulo <code>φ(n)</code>: <code>d × e ≡ 1 (mod φ(n))</code>.</li>
+                            <li>La chiave pubblica è <code>(e, n)</code>, quella privata <code>(d, n)</code>.</li>
+                        </ol>
+                        <h4>📊 Esempio pratico</h4>
+                        <ul>
+                            <li><code>p = 3</code>, <code>q = 11</code></li>
+                            <li><code>n = 33</code>, <code>φ(n) = 20</code></li>
+                            <li><code>e = 7</code>, <code>d = 3</code> (perché <code>7 × 3 ≡ 1 mod 20</code>)</li>
+                            <li>Chiave pubblica: <code>(7, 33)</code>, Chiave privata: <code>(3, 33)</code></li>
+                        </ul>
+                    </div>
+                    <div class="part">
+                        <h3>📥 Cifratura</h3>
+                        <li>Il messaggio <code>m</code> viene cifrato come:</li>
+                        <code>c = m<sup>e</sup> mod n</code>
+
+                        <h3>📤 Decifratura</h3>
+                        <p>Il destinatario decifra con la chiave privata: <code>m = c<sup>d</sup> mod n</code></p>
+
+                        <h3>📌 Nota sull’algoritmo di Euclide Esteso</h3>
+                        <li>Viene usato per trovare <code>d</code>  e <code>φ(n)</code> </li>
+                        <li>a partire da <code>e</code>, </li>
+                        <li>risolvendo l’equazione <code>d × e ≡ 1 mod φ(n)</code></li>
+                        <li>grazie alla combinazione lineare:</li>
+                        <pre>d × e + k × φ(n) = 1</pre>
+                    </div>
+                </section>
+
+                <section id="section3">
+                    <div class="part">
+                    <h2>🔄 Crittografia Ibrida</h2>
+                    <p>
+                        La crittografia ibrida combina il meglio di due mondi: la velocità della <strong>crittografia simmetrica</strong> 🏎️ e la sicurezza della <strong>crittografia asimmetrica</strong> 🔐.
+                        È la soluzione usata nei sistemi moderni come TLS/HTTPS per garantire comunicazioni sicure ed efficienti sul web 🌐.
+                    </p>
+
+                    <h3>📌 Il problema</h3>
+                    <p>
+                        La crittografia asimmetrica (es. RSA) è sicura per scambiare chiavi, ma troppo lenta per cifrare grossi documenti.
+                        La crittografia simmetrica (es. AES) è velocissima, ma non ha un modo sicuro per scambiarsi la chiave.
+                        E allora? 💡 Li mettiamo insieme!
+                    </p>
+
+                    <h3>🧪 Come funziona un sistema ibrido</h3>
+                    <ol>
+                        <li>A (il mittente) genera una <strong>chiave di sessione</strong> temporanea per cifrare il messaggio.</li>
+                        <li>Cripta questa chiave con la <strong>chiave pubblica di B</strong> (il destinatario) usando RSA.</li>
+                        <li>Invia la chiave cifrata a B, che la <strong>decifra con la propria chiave privata</strong>.</li>
+                        <li>A e B ora condividono la stessa chiave segreta e possono <strong>comunicare velocemente in modo simmetrico</strong>.</li>
+                    </ol>
+                    </div>
+                    <div class="part">
+
+                    <h3>🆚 Confronto tra le due tecniche</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>🔓 Simmetrica</th>
+                            <th>🔐 Asimmetrica</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><strong>Velocità</strong></td>
+                            <td>Altissima ⚡</td>
+                            <td>Lenta 🐢</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sicurezza nello scambio</strong></td>
+                            <td>Debole (serve canale sicuro)</td>
+                            <td>Alta (usa chiavi pubbliche)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Utilizzo ottimale</strong></td>
+                            <td>Per dati già scambiati in sicurezza</td>
+                            <td>Per scambiare chiavi segrete</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>📞 Cos'è una PKI?</h3>
+                    <p>
+                        Una <strong>PKI (Public Key Infrastructure)</strong> è come una rubrica pubblica di chiavi, gestita da enti certificatori. Serve a garantire che una chiave pubblica appartenga veramente a una certa persona o server.
+                    </p>
+
+                    <h3>🎯 Conclusione</h3>
+                    <p>
+                        In una comunicazione sicura moderna, la <strong>chiave di sessione viene trasmessa una sola volta</strong> tramite crittografia asimmetrica, poi tutta la conversazione usa <strong>crittografia simmetrica</strong> per massima efficienza. 🔐⚡
+                    </p>
+
+                    <br>
+                    <br>
+                    <br>
+                    <p style="color: gray;">Prova tu a criptare un testo. Abilita la modalità OSMode nel file config.</p>
+                    </div>
+                </section>
+
+
+
+            </main>
+
+            <timeline steps="3" />
+            <blob color="#00bfff" link="true"/>
+            <script src="/page/asymmetric/script.js"></script>
+        </div>
+
+    </body>
+</html>

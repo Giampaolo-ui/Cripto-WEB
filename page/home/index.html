@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="content">
+        <link rel="stylesheet" href="/page/home/style.css">
+
+        <nav class="navbar">
+            <div class="logo">Crittografia</div>
+            <div class="nav-links">
+                <a class="link" page="section" href="#chapters">Chapters</a>
+                <a class="link" page="about" href="#about">About</a>
+                <a class="link" page="${!checkAuth() ? 'login' : 'logout';}" id="login" href="#login">
+                    ${!checkAuth() ? 'Login' : getCookie('auth_user');}
+                </a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Crittografia: la <br> scienza che protegge <br> i nostri dati</h1>
+                <p>La crittografia è essenziale per la sicurezza delle comunicazioni e delle informazioni. Scopri come si è evoluta e le sue applicazioni moderne.</p>
+
+                <if condition="!checkAuth()">
+                    <a class="link" page="login" args="timeline=0">Inizia il viaggio</a>
+
+                    <else>
+                        <a class="link" page="section">Inizia il viaggio</a>
+                    </else>
+                </if>
+            </div>
+        </section>
+
+        <script src="/page/home/script.js"></script>
+
+        <blob color="#38bdf8" enable="true" link="true"/>
+    </div>
+</body>
+</html>
